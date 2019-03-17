@@ -50,6 +50,7 @@ public class PostController extends Controller {
 
     public CompletionStage<Result> create(Http.Request request) {
         JsonNode json = request.body().asJson();
+        System.out.println("----->" + json);
         final PostResource resource = Json.fromJson(json, PostResource.class);
         return handler.create(request, resource).thenApplyAsync(savedResource -> {
             return created(Json.toJson(savedResource));

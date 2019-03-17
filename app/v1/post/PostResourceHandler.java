@@ -25,9 +25,7 @@ public class PostResourceHandler {
     }
 
     public CompletionStage<Stream<PostResource>> find(Http.Request request) {
-        return repository.list().thenApplyAsync(postDataStream -> {
-            return postDataStream.map(data -> new PostResource(data, link(request, data)));
-        }, ec.current());
+        return repository.list().thenApplyAsync(postDataStream -> postDataStream.map(data -> new PostResource(data, link(request, data))), ec.current());
     }
 
     public CompletionStage<PostResource> create(Http.Request request, PostResource resource) {
